@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import HeaderDetailRequest from "../../components/HeaderDetailRequest";
 import { Paper, TextareaAutosize } from "@material-ui/core";
 import AvatarInfo from "../../components/AvatarInfo";
+import RequestProperty from "../../components/RequestProperty";
+import Comment from "../../components/Comment";
 
 const useStyles = makeStyles((theme) => ({
   detailRequest: {
@@ -30,17 +32,24 @@ const useStyles = makeStyles((theme) => ({
     borderTop: "1px solid #777",
     borderBottom: "1px solid #777",
   },
-  lists: {
+  comment: {
     border: "1px solid #777",
     padding: "20px",
+    height: "300px",
+    overflowX: "scroll"
   },
   item: {
     marginBottom: "30px",
+  },
+  textarea: {
+    width: "100%",
+    marginTop: "20px",
   },
 }));
 
 function DetailRequestPage(props) {
   const classes = useStyles();
+  const nameRequestProperty = ["Category", "Assignee"];
   return (
     <div className={classes.detailRequest}>
       <HeaderDetailRequest />
@@ -55,35 +64,38 @@ function DetailRequestPage(props) {
           </div>
 
           <div className={classes.requestProperties}>
-            <div className={classes.property}>
-              <h4>Category</h4>
-            </div>
-            <div className={classes.property}>
-              <h4>Assignee</h4>
-            </div>
+            {nameRequestProperty.map((property, index) => {
+              return (
+                <div className={classes.property}>
+                  <RequestProperty name={property} key={index} />
+                </div>
+              );
+            })}
           </div>
 
           <div>
             <h4>Comment (2)</h4>
-            <div className={classes.lists}>
+            <div className={classes.comment}>
               <div className={classes.item}>
-                <AvatarInfo />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Blanditiis, distinctio!
-                </p>
+                <Comment />
               </div>
               <div className={classes.item}>
-                <AvatarInfo />
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Blanditiis, distinctio!
-                </p>
+                <Comment />
+              </div>
+              <div className={classes.item}>
+                <Comment />
+              </div>
+              <div className={classes.item}>
+                <Comment />
               </div>
             </div>
           </div>
 
-          <TextareaAutosize aria-label="empty textarea" placeholder="wi" />
+          <TextareaAutosize
+            aria-label="empty textarea"
+            placeholder="write a comment"
+            className={classes.textarea}
+          />
         </div>
       </Paper>
     </div>
